@@ -1,0 +1,46 @@
+version: 2
+
+sources:
+  - name: raw         # Logical source name (not actual schema)
+    schema: public      # Actual database schema
+    tables:
+      - name: sales_data_raw 
+        description: "raw sales data"
+        columns:
+          - name: saleid
+            description: "Unique identifier for each sale"
+            tests:
+              - unique
+              - not_null
+          - name: productid
+            description: "Unique identifier for each product"
+            tests:
+              - not_null
+          - name: productname
+            description: "Name of the product"
+            tests:
+              - not_null
+          - name: brand
+            description: "Brand of the product"
+          - name: category
+            description: "Category of the product"
+          - name: retailerid
+            description: "Unique identifier for each retailer"
+          - name: retailername
+            description: "Name of the retailer"
+          - name: channel
+            description: "Channel of the sale and retailer"
+          - name: location
+            description: "Location of the sale and retailer"
+          - name: quantity
+            description: "Quantity of the product sold"
+            tests:
+              - not_null
+          - name: price
+            description: "Price of the product"
+            tests:
+              - not_null
+          - name: date
+            description: "Date of the sale"
+            tests:
+              - not_null

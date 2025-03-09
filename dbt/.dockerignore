@@ -1,0 +1,4 @@
+logs/
+process_sales_data/logs
+process_sales_data/target
+process_sales_data/dbt_packages

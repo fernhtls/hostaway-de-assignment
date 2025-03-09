@@ -1,0 +1,99 @@
+
+version: 2
+
+models:
+  - name: dim_brands
+    description: "Dimension table for brands"
+    columns:
+      - name: brand_id
+        description: "The primary key for this table"
+        data_tests:
+          - unique
+          - not_null
+      - name: brand_name
+        description: "The name of the brand"
+        data_tests:
+          - not_null 
+  - name: dim_categories
+    description: "Dimension table for categories"
+    columns:
+      - name: category_id
+        description: "The primary key for this table"
+        data_tests:
+          - unique
+          - not_null
+      - name: category_name
+        description: "The name of the category"
+        data_tests:
+          - not_null
+  - name: dim_products
+    description: "Dimension table for products"
+    columns:
+      - name: product_id
+        description: "The primary key for this table"
+        data_tests:
+          - unique
+          - not_null
+      - name: product_name
+        description: "The name of the product"
+        data_tests:
+          - not_null
+      - name: brand_id
+        description: "The foreign key for the brand"
+        data_tests:
+          - not_null
+      - name: category_id
+        description: "The foreign key for the category"
+        data_tests:
+          - not_null
+  - name: dim_retailers
+    description: "Dimension table for retailers"
+    columns:
+      - name: retailer_id
+        description: "The primary key for this table"
+        data_tests: 
+          - unique
+          - not_null  
+      - name: retailer_name
+        description: "The name of the retailer"
+        data_tests:
+          - not_null
+      - name: channel
+        description: "The channel of the retailer"
+        tests:
+          - allowed_channels
+      - name: location
+        description: "The location of the retailer"
+        tests:
+          - not_null:
+              config:
+                where: >
+                  channel = 'Offline'
+  - name: fact_sales
+    description: "Fact table for sales"
+    columns:
+      - name: sale_id
+        description: "The primary key for this table" 
+        data_tests:
+          - unique  
+          - not_null 
+      - name: sale_date
+        description: "The date of the sale"
+        data_tests:
+          - not_null
+      - name: product_id
+        description: "The foreign key for the product"
+        data_tests:
+          - not_null
+      - name: retailer_id
+        description: "The foreign key for the retailer"
+        data_tests:
+          - not_null
+      - name: price
+        description: "The price of the product"
+        data_tests:
+          - not_null
+      - name: quantity
+        description: "The quantity of the product"
+        data_tests:
+          - not_null

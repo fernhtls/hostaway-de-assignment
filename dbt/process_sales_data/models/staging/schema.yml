@@ -1,0 +1,36 @@
+
+version: 2
+
+models:
+  - name: stg_sales_data
+    description: "Staging sales data from the source"
+    columns:
+      - name: sale_id
+        description: "The primary key for this table"
+        data_tests:
+          - unique
+          - not_null
+      - name: sale_date
+        description: "The date of the sale"
+        data_tests:
+          - not_null
+      - name: product_id
+        description: "The primary key for this table"
+        data_tests:
+          - not_null
+      - name: product_name
+        description: "The name of the product"
+        data_tests:
+          - not_null
+      - name: brand
+        description: "The brand of the product"
+      - name: category
+        description: "The category of the product"
+      - name: retailer_id
+        description: "The primary key for this table"
+      - name: retailer_name
+        description: "The name of the retailer"
+      - name: channel
+        description: "The channel of the sale and retailer"
+      - name: location
+        description: "The location of the sale and retailer"

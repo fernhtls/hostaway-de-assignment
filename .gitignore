@@ -1,0 +1,5 @@
+.vscode/
+logs/
+dbt/logs/
+dags/__pycache__/
+plugins/

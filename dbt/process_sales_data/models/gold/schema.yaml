@@ -1,0 +1,24 @@
+version: 2
+
+models:
+  - name: year_month_product_sales
+    description: "Monthly product sales"
+    columns:
+      - name: year
+        description: "The year of the sale"
+        data_tests:
+          - not_null
+      - name: month
+        description: "The month of the sale"
+        data_tests:
+          - not_null
+      - name: product_name
+        description: "The name of the product"
+      - name: retailer_name
+        description: "The name of the retailer"
+      - name: channel
+        description: "The channel of the retailer"
+      - name: total_quantity
+        description: "The total quantity of the product sold"
+      - name: total_revenue
+        description: "The total revenue from the sale"

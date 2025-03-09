@@ -1,0 +1,21 @@
+process_sales_data:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: localhost
+      user: sales 
+      password: sales
+      port: 5432
+      dbname: sales 
+      schema: public
+      threads: 4
+    prod:
+      type: postgres
+      host: postgres-sales 
+      user: sales 
+      password: sales
+      port: 5432
+      dbname: sales 
+      schema: analytics
+      threads: 4 
