@@ -101,6 +101,14 @@ In order to run the ingestion on incremental mode pass the arguments:
 
 The process is doing some filtering and inicial data quality checks as well.
 
+For building the `process-sales-data` image, and using it in Airflow build it with the command inside the directory `process_sales_data`:
+
+```
+docker build -t process-sales-data:latest .
+```
+
+Ps: `cd` into the `process_sales_data` directory to run the docker build command.
+
 ### Part 2: Database Integration
 - Load the processed data into PostgreSQL with appropriate schema design (docker compose provided)
 - Implement basic indexing for performance optimization
@@ -108,6 +116,14 @@ The process is doing some filtering and inicial data quality checks as well.
 The ingestion process handles the `raw` intial ingestion table, including indexes for performance optimizations as well.
 
 One improvement that should ne done is to have the table with `RANGE partitioning` on the `Date` column, but for postgres the partitions have to be added manualy, so for the saque of the demo I didn't include it.
+
+For building the `dbt-process-sales-data` image, and using it in Airflow build it with the command inside the directory `dbt`:
+
+```
+docker build -t dbt-process-sales-data:latest .
+```
+
+Ps: `cd` into the `dbt` directory to run the docker build command.
 
 ### Part 3: Airflow Orchestration
 - Create an Airflow DAG to orchestrate the pipeline
@@ -133,3 +149,78 @@ Create the DAG with the whole datastream config for both tasks. [Here's the DAG]
 * SDC (slow change dimensions) intial setup included, but not deactivating old values.
 * Dimension models with surrogate keys.
 * All models configured to run on `incremental` mode, but for the demo onlu doing `full-refreshes` through the DAG calls.
+
+
+### Local development
+
+I have used locally `pyenv` in order to manage different python versions, and different `deps` for developing each component.
+
+With `pyenv` you can manage all your python version, plus virtualenvs.
+
+To install a new python version with `pyenv`:
+
+```
+pyenv install 3.12.9
+```
+
+For more info about `pyenv` check: https://github.com/pyenv/pyenv.
+
+#### Airflow local dev
+
+Airflow is on our docker-compose deployment, but I wanted to have
+
+```
+pyenv virtualenv 3.12.9 process_sales_data_airflow
+```
+
+Source it:
+
+```
+source /Users/fsouza/.pyenv/versions/3.12.9/envs/process_sales_data_airflow/bin/activate
+```
+
+Install additional packages:
+
+```
+pip install apache-airflow==2.10.5
+pip install apache-airflow-providers-docker
+pip install docker
+```
+
+#### DBT local dev
+
+The `postgres-sales` is exposing the port 5432 to the host (change in docker-compose if needed):
+
+so you can locally dbt with the profile `dev`:
+
+```
+dbt build --profiles-dir=.dbt --target dev --full-refresh
+```
+
+Use the same process as above to create a new virtualenv:
+
+```
+pyenv virtualenv 3.11.8 process_sales_data_dbt
+```
+
+And install deps from the requirements file within the `dbt` dir:
+
+```
+pip install -r ./dbt/requirements.txt
+```
+
+Ps: same requirements file used for the docker image.
+
+#### Ingestion development
+
+I've used the same process as above for the `process_sales_data` ingestion
+
+```
+pyenv virtualenv 3.11.8 process_sales_data
+```
+
+And install deps from the requirements file within the `process_sales_data` dir:
+
+```
+pip install -r ./process_sales_data/requirements.txt
+```
