@@ -1,7 +1,13 @@
 {{
     config(
         materialized='incremental',
-        keys=['month', 'product_name', 'retailer_name', 'channel']
+        keys=['month', 'product_name', 'retailer_name', 'channel'],
+        indexes=[
+            {'columns': ['month'], 'type': 'btree'},
+            {'columns': ['product_name'], 'type': 'btree'},
+            {'columns': ['retailer_name'], 'type': 'btree'},
+            {'columns': ['channel'], 'type': 'btree'},
+        ]
     )
 }}
 
