@@ -1,7 +1,12 @@
 {{
     config(
         materialized='incremental',
-        unique_key='sale_id'
+        unique_key='sale_id',
+        indexes=[
+            {'columns': ['product_id'], 'type': 'hash'},
+            {'columns': ['retailer_id'], 'type': 'hash'},
+            {'columns': ['sale_date'], 'type': 'btree'},
+        ]
     )
 }}
 

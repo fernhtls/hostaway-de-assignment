@@ -17,5 +17,5 @@ process_sales_data:
       password: sales
       port: 5432
       dbname: sales 
-      schema: analytics
-      threads: 4 
+      schema: public
+      threads: 4
