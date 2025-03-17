@@ -73,6 +73,12 @@ Here's the solution diagram:
 * **Main reason for using this design is that all components stay standalone, with their own dependencies, their own requirements and configurations, not cross adding deps within Airflow itself for any of the components. I'm using `pyenv` locally to have separated virtualenvs and python versions, so I can develop for each components separately, and without conflicts or deps issues.**
 * **This same design and principle can be used when having Airflow on k8s, to trigger any extractor / connector and so on. This allows Airflow to remain as just the orchestrator, lineage of the pipelines.**
 
+### Airflow login:
+
+* `http://localhost:8080` - user `airflow` / passwd `airflow`.
+* `sales` database: can be logged on `localhost:5432`, user `sales` / passwd `sales`
+* `airflow` metdata db can be connected as well but it's not holding data (port not exposed).
+
 ### Part 1: Data Ingestion & Processing
 - Create a script to ingest and parse the provided CSV file `./generated-sales-data.csv`
 
